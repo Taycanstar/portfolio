@@ -67,17 +67,16 @@ const Home = (props: Props) => {
     
 
     
-  return (
-    <div className="flex  items-center h-screen justify-around">
-        <h1 className="text-8xl font-extralight">Dimi N.</h1>
-        <div className="flex flex-col"> {/* Added margin-left for spacing */}
-            <h1 className="text-6xl font-extralight">
-                <TypewriterEffect/>
-            </h1>
-            
+    return (
+        <div className="flex items-center h-screen">
+            <div className="flex flex-col lg:flex-row items-center justify-around w-full px-4 py-4 lg:p-0 text-center">
+                <h1 className="text-6xl md:text-6xl lg:text-8xl font-extralight mb-6 lg:mb-0">Dimi N.</h1>
+                <div className="hidden lg:block w-auto text-6xl font-extralight">
+                    <TypewriterEffect/>
+                </div>
+            </div>
         </div>
-    </div>
-  )
+    );
 }
 
 export default Home
