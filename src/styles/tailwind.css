@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#__next {
+  min-height: 100%;
+}
+
+body {
+  @apply bg-black text-white;
+}
+
+
+
+
+.page {
+  transition: transform 0.5s ease-in-out;
+  transform: translateY(-100%);
+}
+
+.active {
+  transform: translateY(0);
+}
+
+.inactive {
+  transform: translateY(100%);
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+
+
+
+.thin-underline span {
+  text-decoration: none; /* Remove the default underline */
+  border-bottom: 1px solid; /* Adjust '1px' to your preferred thickness */
+}
