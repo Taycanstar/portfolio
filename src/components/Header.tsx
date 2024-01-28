@@ -12,7 +12,7 @@ const navigation = [
   ]
   
 
-type Props = {}
+
 
 type HeaderProps = {
   onNavigate: (index: number) => void;
