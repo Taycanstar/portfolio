@@ -144,10 +144,12 @@ const Carousel = forwardRef<CarouselHandle>((props, ref) => {
   const touchEndX = useRef<number>(0);
 
   const handleTouchStart = useCallback((event: TouchEvent) => {
+    event.preventDefault(); 
     touchStartX.current = event.touches[0].clientX;
   }, []);
 
   const handleTouchEnd = useCallback((event: TouchEvent) => {
+    event.preventDefault(); 
     touchEndX.current = event.changedTouches[0].clientX;
     handleSwipe();
   }, []);
