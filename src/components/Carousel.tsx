@@ -140,6 +140,28 @@ const Carousel = forwardRef<CarouselHandle>((props, ref) => {
     }
   }));
 
+  const touchStartX = useRef<number>(0);
+  const touchEndX = useRef<number>(0);
+
+  const handleTouchStart = useCallback((event: TouchEvent) => {
+    touchStartX.current = event.touches[0].clientX;
+  }, []);
+
+  const handleTouchEnd = useCallback((event: TouchEvent) => {
+    touchEndX.current = event.changedTouches[0].clientX;
+    handleSwipe();
+  }, []);
+
+  const handleSwipe = useCallback(() => {
+    if (touchEndX.current < touchStartX.current && activeIndex < pages.length - 1) {
+      setLastActiveIndex(activeIndex);
+      setActiveIndex(activeIndex + 1);
+    } else if (touchEndX.current > touchStartX.current && activeIndex > 0) {
+      setLastActiveIndex(activeIndex);
+      setActiveIndex(activeIndex - 1);
+    }
+  }, [activeIndex, pages.length]);
+
   const handleScroll = useCallback(
     (event: WheelEvent) => {
       event.preventDefault();
@@ -161,13 +183,32 @@ const Carousel = forwardRef<CarouselHandle>((props, ref) => {
   );
 
   useEffect(() => {
+    // Existing wheel event listener
     const wheelHandler = (e: WheelEvent) => handleScroll(e);
     window.addEventListener('wheel', wheelHandler, { passive: false });
 
+    // Touch event listeners
+    window.addEventListener('touchstart', handleTouchStart, { passive: false });
+    window.addEventListener('touchend', handleTouchEnd, { passive: false });
+
     return () => {
       window.removeEventListener('wheel', wheelHandler);
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchend', handleTouchEnd);
     };
-  }, [handleScroll]);
+  }, [handleScroll, handleTouchStart, handleTouchEnd]);
+
+
+ 
+
+//   useEffect(() => {
+//     const wheelHandler = (e: WheelEvent) => handleScroll(e);
+//     window.addEventListener('wheel', wheelHandler, { passive: false });
+
+//     return () => {
+//       window.removeEventListener('wheel', wheelHandler);
+//     };
+//   }, [handleScroll]);
 
   const carouselStyle: CSSProperties = {
     position: 'relative',
