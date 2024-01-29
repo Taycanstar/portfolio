@@ -6,11 +6,12 @@ type Props = {
 
 const Hero = ({ children }:any) => {
   return (
-    <div style={{ position: 'relative', height: '100vh' }}>
+    <div style={{ position: 'relative', height: '100vh', width: '100vw'  }}>
       <video
         autoPlay
         loop
         muted
+        playsInline
         style={{
           width: '100%',
           height: '100%',
@@ -18,7 +19,9 @@ const Hero = ({ children }:any) => {
           top: 0,
           left: 0,
           objectFit: 'cover',
-          zIndex: -1
+          zIndex: -1,
+          pointerEvents: 'none',
+         
         }}
         className="hero-video">
         <source src="/videos/pk.mp4" type="video/mp4" />
